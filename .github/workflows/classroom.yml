@@ -36,7 +36,6 @@ jobs:
           kubectl config set-context default --cluster=lab4-klaster --user=admin
           kubectl config use-context default
           kubectl apply -f k8s.yaml
-          kubectl port-forward gateway-5f7f94b9dd-f8lq6 8080:80
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
