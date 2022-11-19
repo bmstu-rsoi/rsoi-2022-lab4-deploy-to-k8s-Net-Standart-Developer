@@ -1,0 +1,47 @@
+version: "3"
+services:
+  gateway:
+    image: csdevcore/gateway
+    build: ./GatewayLab2/GatewayLab2/
+    ports:
+      - "80:80"
+    environment:
+      - RESERVATION=reservation:80
+      - PAYMENT=payment:80
+      - LOYALTY=loyalty:80
+
+  reservation:
+    image: csdevcore/reservation
+    build: ./ReservationService2Lab/ReservationService2Lab/
+    ports:
+      - "80:80"
+    environment:
+      - DBHOST=postgres2
+      - DBPORT=5432
+      - DATABASE=reservations
+      - USERNAME=program
+      - PASSWORD=test
+
+  payment:
+    image: csdevcore/payment
+    build: ./PaymentServiceLab2/PaymentServiceLab2/
+    ports:
+      - "80:80"
+    environment:
+      - DBHOST=postgres2
+      - DBPORT=5432
+      - DATABASE=payments
+      - USERNAME=program
+      - PASSWORD=test
+
+  loyalty:
+    image: csdevcore/loyalty
+    build: ./LoyaltyServiceLab2/LoyaltyServiceLab2/
+    ports:
+      - "80:80"
+    environment:
+      - DBHOST=postgres2
+      - DBPORT=5432
+      - DATABASE=loyalties
+      - USERNAME=program
+      - PASSWORD=test
