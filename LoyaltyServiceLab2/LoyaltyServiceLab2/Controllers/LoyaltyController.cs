@@ -28,7 +28,7 @@ namespace LoyaltyServiceLab2.Controllers
                 db.SaveChanges();
             }
 
-            Console.WriteLine("Loyalty controller");
+            Console.WriteLine("Loyalty controller1");
         }
 
         [HttpGet]
