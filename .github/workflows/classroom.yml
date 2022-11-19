@@ -21,11 +21,12 @@ jobs:
         run: docker compose push
 
       - name: k8s deploy
-        run: kubectl config set-cluster lab4-klaster --server="$KUBE_URL" --insecure-skip-tls-verify=true
-        run: kubectl config set-credentials admin --token="$KUBE_TOKEN"
-        run: kubectl config set-context default --cluster=lab4-klaster --user=admin
-        run: kubectl config use-context default
-        run: kubectl apply -f k8s.yaml
+      script:
+        - kubectl config set-cluster lab4-klaster --server="$KUBE_URL" --insecure-skip-tls-verify=true
+        - kubectl config set-credentials admin --token="$KUBE_TOKEN"
+        - kubectl config set-context default --cluster=lab4-klaster --user=admin
+        - kubectl config use-context default
+        - kubectl apply -f k8s.yaml
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
