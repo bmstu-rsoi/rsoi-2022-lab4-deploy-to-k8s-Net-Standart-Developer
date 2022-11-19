@@ -22,9 +22,6 @@ jobs:
       # TODO build, publish to docker hub, deploy to k8s
       - name: Build the stack
         run: docker-compose build
-      
-      - name: Push the stack
-        run: docker-compose push
 
       - name: k8s deploy
         run: |
