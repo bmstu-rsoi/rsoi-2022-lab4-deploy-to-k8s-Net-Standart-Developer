@@ -6,6 +6,7 @@ on:
 env:
   KUBE_URL: ${{ secrets.KUBE_URL }}
   KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+  DOCKERHUBPAS: ${{ secrets.DOCKERHUBPAS }}
 
 
 jobs:
@@ -22,6 +23,11 @@ jobs:
       # TODO build, publish to docker hub, deploy to k8s
       - name: Build the stack
         run: docker-compose build
+      
+      - name: Push the stack
+        run: |
+          docker login -u csdevcore -p $DOCKERHUBPAS
+          docker-compose push
 
       - name: k8s deploy
         run: |
@@ -30,6 +36,7 @@ jobs:
           kubectl config set-context default --cluster=lab4-klaster --user=admin
           kubectl config use-context default
           kubectl apply -f k8s.yaml
+          kubectl port-forward gateway-5f7f94b9dd-f8lq6 8080:80
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
