@@ -2,6 +2,12 @@ name: GitHub Classroom Workflow
 on:
   push:
     branches: [ master ]
+
+env:
+  KUBE_URL: ${{ secrets.KUBE_URL }}
+  KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+
+
 jobs:
   build:
     name: Autograding
@@ -18,7 +24,7 @@ jobs:
         run: docker-compose build
       
       - name: Push the stack
-        run: docker compose push
+        run: docker-compose push
 
       - name: k8s deploy
         - run: |
